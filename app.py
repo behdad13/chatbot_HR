@@ -6,21 +6,32 @@ openai.api_key = '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'
 
 app = Flask(__name__)
 
+questions = [
+    "Please tell me the job position:",
+    "Please tell me the job tasks:",
+    "Cloud Experience:",
+    "Programming Language Experience:",
+    "Database Experience:"
+]
+
+answers = {}
 
 @app.route('/', methods=['GET', 'POST'])
 def chat_with_hr():
     if request.method == 'POST':
-        position = request.form.get('position')
-        tasks = request.form.get('tasks')
-        cloud_exp = request.form.get('cloud_exp')
-        prog_langs = request.form.get('prog_langs')
-        db_exp = request.form.get('db_exp')
+        question_number = int(request.form.get('question_number'))
+        answer = request.form.get('answer')
+        answers[str(question_number)] = answer
 
-        job_description = create_job_description(position, tasks, cloud_exp, prog_langs, db_exp)
+        if question_number < len(questions) - 1:
+            question_number += 1
+            return render_template('chatbot.html', question=questions[question_number], question_number=question_number)
+
+        job_description = create_job_description(answers['0'], answers['1'], answers['2'], answers['3'], answers['4'])
 
         return render_template('result.html', job_description=job_description)
 
-    return render_template('index.html')
+    return render_template('chatbot.html', question=questions[0], question_number=0)
 
 
 def create_job_description(position, tasks, cloud_exp, prog_langs, db_exp):
@@ -30,7 +41,7 @@ def create_job_description(position, tasks, cloud_exp, prog_langs, db_exp):
         engine="text-davinci-003",
         prompt=prompt,
         temperature=0.7,
-        max_tokens=300
+        max_tokens=500
     )
 
     return response.choices[0].text.strip()
