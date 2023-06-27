@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Company Benefits</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Virtual Assistant - HR Chat</h1>
+        <form method="POST" action="/benefits">
+            <label for="benefits_info">Please provide details about the company benefits:</label><br>
+            <textarea id="benefits_info" name="benefits_info" rows="5" cols="50"></textarea><br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</body>
+</html>
+

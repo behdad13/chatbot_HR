@@ -1,33 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <style>
-    .content {
-      max-width: 400px;
-      margin: 0 auto;
-      padding: 20px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      background-color: #f9f9f9;
-      font-family: Arial, sans-serif;
-    }
-
-    .job-description {
-      margin-top: 10px;
-      padding: 10px;
-      border-radius: 4px;
-      background-color: #fff;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    }
-  </style>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
-  <div class="content">
-    <h2>Job Description</h2>
-    <div class="job-description">
-      {{ job_description }}
+    <div class="container">
+        <h1>Job Description</h1>
+        <p>{{ job_description }}</p>
     </div>
-    <a href="/">Back to form</a>
-  </div>
 </body>
 </html>

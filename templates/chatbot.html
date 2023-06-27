@@ -1,100 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f9f9f9;
-    }
-
-    #chat-container {
-      max-width: 400px;
-      margin: 0 auto;
-      padding: 20px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      background-color: #ffffff;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    .chat-bubble {
-      display: flex;
-      justify-content: flex-start;
-      margin-bottom: 10px;
-    }
-
-    .user-bubble {
-      justify-content: flex-end;
-    }
-
-    .chat-bubble p {
-      margin: 0;
-      padding: 10px;
-      border-radius: 4px;
-      background-color: #f2f2f2;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    }
-
-    input[type="text"] {
-      width: 100%;
-      padding: 8px;
-      margin-top: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      box-sizing: border-box;
-    }
-
-    button[type="submit"] {
-      margin-top: 10px;
-      padding: 8px 16px;
-      border: none;
-      border-radius: 4px;
-      background-color: #4CAF50;
-      color: #fff;
-      cursor: pointer;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Virtual Assistant - HR Chat</title>
 </head>
 <body>
-  <div id="chat-container">
-    <div class="chat-bubble">
-      <p>{{ question }}</p>
+    <div class="container">
+        <h1>Virtual Assistant - HR Chat</h1>
+        <form method="POST" action="/">
+            <label>{{ question }}</label>
+            <br>
+            <input type="text" name="answer" required>
+            <input type="hidden" name="question_number" value="{{ question_number }}">
+            <br>
+            <input type="submit" value="Next">
+        </form>
     </div>
-    <form method="POST" id="answer-form">
-      <input type="hidden" name="question_number" value="{{ question_number }}">
-      <input type="text" name="answer" id="answer-input">
-      <button type="submit" id="submit-button">Send</button>
-    </form>
-  </div>
-
-  <script>
-    const chatContainer = document.getElementById('chat-container');
-    const answerForm = document.getElementById('answer-form');
-    const answerInput = document.getElementById('answer-input');
-    const submitButton = document.getElementById('submit-button');
-
-    answerForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-      submitButton.disabled = true;
-
-      const formData = new FormData(answerForm);
-      const request = new XMLHttpRequest();
-
-      request.onreadystatechange = function() {
-        if (request.readyState === XMLHttpRequest.DONE) {
-          if (request.status === 200) {
-            chatContainer.innerHTML += `<div class="chat-bubble user-bubble"><p>${answerInput.value}</p></div>`;
-            chatContainer.innerHTML += request.responseText;
-            chatContainer.scrollTop = chatContainer.scrollHeight;
-            answerInput.value = '';
-            submitButton.disabled = false;
-          }
-        }
-      };
-
-      request.open('POST', '/');
-      request.send(formData);
-    });
-  </script>
 </body>
 </html>
