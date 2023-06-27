@@ -34,4 +34,3 @@ def chat_with_hr():
 
 # Run the chatbot
 chat_with_hr()
-)

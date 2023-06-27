@@ -83,10 +83,10 @@ def create_job_description(position, tasks, skills_exp, cloud_exp, prog_langs, d
         engine="text-davinci-003",
         prompt=prompt,
         temperature=0.7,
-        max_tokens=500
+        max_tokens=1000
     )
 
-    return response.choices[0].text.strip()
+    return response.choices[0].text.lstrip().rstrip()
 
 
 if __name__ == '__main__':
