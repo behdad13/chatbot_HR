@@ -90,4 +90,4 @@ def create_job_description(position, tasks, skills_exp, cloud_exp, prog_langs, d
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0')
