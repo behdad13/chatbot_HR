@@ -1,7 +1,7 @@
 import openai
 
 # Set up your OpenAI API credentials
-openai.api_key = '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'
+openai.api_key = ''
 
 
 # Function to create job description
